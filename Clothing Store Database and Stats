@@ -1,0 +1,26 @@
+CREATE TABLE trendy_fashion (id INTEGER PRIMARY KEY, item TEXT, color TEXT, size INTEGER, quantity INTEGER, price INTEGER);
+
+INSERT INTO trendy_fashion VALUES (1,"tops","pink",1,5,10);
+INSERT INTO trendy_fashion VALUES (2,"tops","pink",3,3,10);
+INSERT INTO trendy_fashion VALUES (3,"tops","pink",5,2,10);
+
+INSERT INTO trendy_fashion VALUES (4,"pants","blue",1,5,15);
+INSERT INTO trendy_fashion VALUES (5,"pants","blue",3,3,15);
+INSERT INTO trendy_fashion VALUES (6,"pants","blue",5,2,15);
+
+INSERT INTO trendy_fashion VALUES (7,"dresses","purple",1,5,14);
+INSERT INTO trendy_fashion VALUES (8,"dresses","purple",3,3,14);
+INSERT INTO trendy_fashion VALUES (9,"dresses","purple",5,2,14);
+
+INSERT INTO trendy_fashion VALUES (10,"shorts","yellow",1,5,12);
+INSERT INTO trendy_fashion VALUES (11,"shorts","yellow",3,3,12);
+INSERT INTO trendy_fashion VALUES (12,"shorts","yellow",5,2,12);
+
+INSERT INTO trendy_fashion VALUES (13,"skirts","green",1,5,11);
+INSERT INTO trendy_fashion VALUES (14,"skirts","green",3,3,11);
+INSERT INTO trendy_fashion VALUES (15,"skirts","green",5,2,11);
+
+SELECT * FROM trendy_fashion WHERE price >9 ORDER BY price;
+SELECT SUM(quantity) FROM trendy_fashion WHERE size =3 ORDER BY color;
+
+
