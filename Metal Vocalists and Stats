@@ -1,0 +1,51 @@
+/* Create table about the people and what they do here */
+CREATE TABLE metal_vocalists (id INTEGER PRIMARY KEY, name TEXT, band TEXT, year_debut INTEGER, country TEXT);
+
+INSERT INTO metal_vocalists VALUES(1,"Tati","Jinjer",2009,"Ukraine");
+INSERT INTO metal_vocalists VALUES(2,"Lauren","Once Human",2014,"USA");
+INSERT INTO metal_vocalists VALUES(3,"Lena","Infected Rain",2008,"Moldova");
+INSERT INTO metal_vocalists VALUES(4,"Courtney","Spiritbox",2017,"Canada");
+INSERT INTO metal_vocalists VALUES(5,"Megan","Vexed",2021,"UK");
+
+CREATE TABLE favorite_songs (id INTEGER PRIMARY KEY, title TEXT, band_id INTEGER);
+
+INSERT INTO favorite_songs VALUES(1,"Vortex",1);
+INSERT INTO favorite_songs VALUES(2,"Perennial",1);
+INSERT INTO favorite_songs VALUES(3,"Only in Death",2);
+INSERT INTO favorite_songs VALUES(4,"Sledgehammer",2);
+INSERT INTO favorite_songs VALUES(5,"Black Gold",3);
+INSERT INTO favorite_songs VALUES(6,"In the Realm of Chaos",3);
+INSERT INTO favorite_songs VALUES(7,"Sunkiller",4);
+INSERT INTO favorite_songs VALUES(8,"Circle With Me",4);
+INSERT INTO favorite_songs VALUES(9,"Purity",5);
+INSERT INTO favorite_songs VALUES (10,"Elite",5);
+
+CREATE TABLE albums (id INTEGER PRIMARY KEY, title TEXT, song_id INTEGER);
+
+INSERT INTO albums VALUES(1,"Wallflowers",1);
+INSERT INTO albums VALUES(2,"Micro",2);
+INSERT INTO albums VALUES(3,"Scar Weaver",3);
+INSERT INTO albums VALUES(4,"Sledgehammer",4);
+INSERT INTO albums VALUES(5,"Endorphin",5);
+INSERT INTO albums VALUES(6,"Ecdysis",6);
+INSERT INTO albums VALUES(7,"Eternal Blue",7);
+INSERT INTO albums VALUES(8,"Eternal Blue",8);
+INSERT INTO albums VALUES(9,"Culling Culture",9);
+INSERT INTO albums VALUES(10,"Elite",10);
+
+SELECT*FROM metal_vocalists;
+
+SELECT metal_vocalists.name as vocalist, metal_vocalists.band, favorite_songs.title as favorite_songs 
+FROM favorite_songs 
+JOIN metal_vocalists ON metal_vocalists.id = favorite_songs.band_id;
+
+SELECT metal_vocalists.name as vocalist, metal_vocalists.band, favorite_songs.title as favorite_songs, albums.title as album 
+FROM metal_vocalists 
+JOIN favorite_songs ON metal_vocalists.id = favorite_songs.band_id 
+JOIN albums ON favorite_songs.id = albums.song_id
+ORDER BY year_debut;
+
+
+
+
+
