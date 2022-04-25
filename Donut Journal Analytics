@@ -1,0 +1,44 @@
+--In this SQL code, I'm querying a table holding data about a food log to answer questions about the data.
+
+SELECT reason, AVG(donuts_eaten) as "average_donuts_eaten"
+FROM winstons_donut_logs 
+GROUP BY reason;
+
+SELECT reason, MAX(donuts_eaten) as "maximum_donuts_eaten" 
+FROM winstons_donut_logs 
+GROUP BY reason;
+
+SELECT reason, MIN(donuts_eaten) as "minimum_donuts_eaten" 
+FROM winstons_donut_logs 
+GROUP BY reason;
+
+SELECT status, donuts_eaten as "total_donuts" 
+FROM winstons_donut_logs 
+GROUP BY status 
+HAVING donuts_eaten >2000;
+
+SELECT reason, SUM(donuts_eaten) as "total_donuts" 
+FROM winstons_donut_logs 
+GROUP BY reason 
+HAVING COUNT(donuts_eaten);
+
+SELECT donuts_eaten, years_old,
+CASE
+WHEN years_old >50 THEN "Older Adult Winston"
+WHEN years_old >30 THEN "Adult Winston"
+WHEN years_old >20 THEN "Young Adult Winston"
+WHEN years_old >13 THEN "Teenage Winston"
+ELSE "Child Winston"
+END as "life_stages"
+FROM winstons_donut_logs;
+
+SELECT MAX(donuts_eaten) as "maximum_donuts",
+CASE
+WHEN years_old >50 THEN "Older Adult Winston"
+WHEN years_old >30 THEN "Adult Winston"
+WHEN years_old >20 THEN "Young Adult Winston"
+WHEN years_old >13 THEN "Teenage Winston"
+ELSE "Child Winston"
+END as "life_stages"
+
+FROM winstons_donut_logs GROUP BY life_stages;
