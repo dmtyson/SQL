@@ -1,4 +1,5 @@
-/* Create table about the people and what they do here */
+--Created tables showing a sample of statistics about five female fronted metal bands and ran queries joining the tables into readable lists
+
 CREATE TABLE metal_vocalists (id INTEGER PRIMARY KEY, name TEXT, band TEXT, year_debut INTEGER, country TEXT);
 
 INSERT INTO metal_vocalists VALUES(1,"Tati","Jinjer",2009,"Ukraine");
@@ -41,11 +42,11 @@ JOIN metal_vocalists ON metal_vocalists.id = favorite_songs.band_id;
 
 SELECT metal_vocalists.name as vocalist, metal_vocalists.band, favorite_songs.title as favorite_songs, albums.title as album 
 FROM metal_vocalists 
-JOIN favorite_songs ON metal_vocalists.id = favorite_songs.band_id 
-JOIN albums ON favorite_songs.id = albums.song_id
+JOIN favorite_songs 
+ON metal_vocalists.id = favorite_songs.band_id 
+JOIN albums 
+ON favorite_songs.id = albums.song_id 
 ORDER BY year_debut;
-
-
 
 
 
