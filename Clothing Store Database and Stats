@@ -1,3 +1,5 @@
+--Create table with at least 5 columns of data to store
+
 CREATE TABLE trendy_fashion (id INTEGER PRIMARY KEY, item TEXT, color TEXT, size INTEGER, quantity INTEGER, price INTEGER);
 
 INSERT INTO trendy_fashion VALUES (1,"tops","pink",1,5,10);
@@ -20,7 +22,11 @@ INSERT INTO trendy_fashion VALUES (13,"skirts","green",1,5,11);
 INSERT INTO trendy_fashion VALUES (14,"skirts","green",3,3,11);
 INSERT INTO trendy_fashion VALUES (15,"skirts","green",5,2,11);
 
-SELECT * FROM trendy_fashion WHERE price >9 ORDER BY price;
-SELECT SUM(quantity) FROM trendy_fashion WHERE size =3 ORDER BY color;
+--Queries showing items ordered by price and items in one size ordered by color in alphabetical order
 
+SELECT * FROM trendy_fashion WHERE price >9 ORDER BY price asc;
+
+SELECT*FROM trendy_fashion
+WHERE size=1 
+ORDER BY color asc;
 
