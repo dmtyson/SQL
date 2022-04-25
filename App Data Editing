@@ -1,0 +1,20 @@
+--Created a table to store examples of user stats from the game Cat Game
+
+CREATE TABLE cat_game (id INTEGER PRIMARY KEY, username TEXT, user_level INTEGER, cats_owned INTEGER, deco_owned INTEGER, match_cats_top_score INTEGER, poppy_cats_top_score INTEGER, blocky_cats_top_score INTEGER);
+
+INSERT INTO cat_game VALUES(1,"EchoKlaxosaur",74,1229,1566,575,1227,14940);
+INSERT INTO cat_game VALUES(2,"ninah8",71,948,1300,639,1186,870);
+INSERT INTO cat_game VALUES(3,"IWINCATZ",76,1638,1950,634,2101,8790);
+INSERT INTO cat_game VALUES(4,"Rainclouds",76,1312,1700,468,1160,1030);
+
+-- Used an UPDATE to emulate editing data in the app
+SELECT*FROM cat_game;
+UPDATE cat_game SET user_level = 75 WHERE id = 1;
+UPDATE cat_game SET cats_owned = 950 WHERE id = 2;
+UPDATE cat_game SET deco_owned = 2000 WHERE id = 3;
+UPDATE cat_game SET poppy_cats_top_score = 1400 WHERE id = 4;
+SELECT*FROM cat_game;
+
+--Used a DELETE to emulate deleting data from the app
+DELETE FROM cat_game WHERE id = 1;
+SELECT*FROM cat_game;
