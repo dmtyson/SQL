@@ -1,0 +1,133 @@
+--In this SQL code I queried a database with information about an online music store
+
+--Show Customers (their full names, customer ID, and country) who are not in the US.
+SELECT CustomerID,FirstName,LastName,Country
+FROM customers
+WHERE country!='USA';
+
+--Show only the Customers from Brazil.
+SELECT CustomerID, FirstName, LastName, Country
+FROM customers
+WHERE country = 'Brazil';
+
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, 
+--Invoice ID, Date of the invoice, and billing country.
+SELECT cust.FirstName, cust.LastName,
+inv.InvoiceID, inv.InvoiceDate, inv.BillingCountry
+FROM customers as cust
+LEFT JOIN
+invoices as inv
+ON cust.CustomerID = inv.CustomerID
+WHERE BillingCountry = 'Brazil'
+ORDER BY cust.LastName ASC;
+
+
+--Show the Employees who are Sales Agents.
+SELECT *
+FROM employees
+WHERE Title ='Sales Support Agent'
+ORDER BY LastName ASC;
+
+--Find a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT BillingCountry
+FROM invoices
+ORDER BY BillingCountry ASC;
+
+--Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT emp.FirstName, emp.LastName,
+inv.InvoiceID
+FROM employees as emp
+JOIN
+customers as cust ON cust.SupportRepId = emp.EmployeeId
+JOIN
+invoices as inv ON inv.CustomerId = cust.CustomerId;
+
+
+--Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+SELECT emp.FirstName, emp.LastName,
+cust.FirstName, cust.LastName, cust.Country,
+inv.Total
+FROM customers as cust 
+JOIN invoices as inv ON inv.CustomerId = cust.CustomerId
+JOIN employees as emp ON cust.SupportRepId = emp.EmployeeId;
+
+--How many Invoices were there in 2009?
+SELECT COUNT(*)
+FROM invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+--What are the total sales for 2009?
+SELECT SUM(Total)
+FROM invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+--Write a query that includes the purchased track name with each invoice line item.
+SELECT tracks.Name, inv.InvoiceLineId
+FROM tracks
+JOIN invoice_items as inv
+ON tracks.TrackID = inv.TrackId;
+
+--Write a query that includes the purchased track name AND artist name with each invoice line item.
+SELECT t.Name,t.Composer,inv.InvoiceLineId
+FROM tracks as t
+JOIN invoice_items as inv ON t.TrackID = inv.TrackId;
+
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT t.Name as 'track', a.Title as 'album', m.Name as 'media_type', g.Name as 'genre'
+FROM tracks as t
+JOIN albums as a ON t.AlbumId = a.AlbumId
+JOIN media_types as m ON t.MediaTypeId = m.MediaTypeId
+JOIN genres as g ON t.GenreId = g.GenreId;
+
+--Show the total sales made by each sales agent.
+SELECT e.FirstName, e.LastName, ROUND(SUM(Inv.Total), 2) as 'Total Sales'
+FROM employees as e
+JOIN customers as c ON c.SupportRepId = e.EmployeeId
+JOIN invoices as inv ON c.CustomerId = inv.CustomerId
+WHERE e.Title = 'Sales Support Agent'
+GROUP BY e.FirstName;
+
+
+--Which sales agent made the most in sales in 2009?
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM employees emp
+
+JOIN customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+
+JOIN invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+
+WHERE emp.Title = 'Sales Support Agent' 
+AND Inv.InvoiceDate LIKE '2009%' 
+GROUP BY emp.FirstName
+ORDER BY (round(sum(Inv.Total), 2))  DESC LIMIT 1;
+
+--List all of the tracks in the 90's playlist with their composer
+SELECT DISTINCT t.name as 'track', t.composer, p.name as '90s Songs Playlist'
+FROM tracks as t
+JOIN playlist_track as pt ON t.TrackId = pt.TrackId
+JOIN playlists as p ON p.PlaylistId = pt.PlaylistId
+WHERE p.PlaylistId = 5; 
+
+--What is the total cost of the 90's Playlist
+SELECT ROUND(SUM(UnitPrice),2) as 'Total Cost'
+FROM invoice_items as inv
+JOIN playlist_track as pt ON inv.TrackId = pt.TrackId
+WHERE PlaylistId = 5;
+
+--Who were the first three employees hired and what are their titles?
+SELECT FirstName,LastName,Title,HireDate
+FROM employees
+ORDER BY HireDate ASC
+LIMIT 3;
+
+--Who were the last three employees hired and what are their titles?
+SELECT FirstName, LastName, Title, HireDate
+From employees
+WHERE HireDate BETWEEN '2003-10-17' AND '2004-03-05'
+GROUP BY HireDate
+ORDER BY HireDate ASC
+LIMIT 3;
